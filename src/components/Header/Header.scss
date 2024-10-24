@@ -1,0 +1,80 @@
+// Header.module.scss
+@use '../../styles/variables.scss';
+.header {
+    &__container {
+        padding: 15px 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__logo-wrapp {
+        transition: all 0.35s;
+        cursor: pointer;
+        &:hover {
+            transition: all 0.35s;
+            transform: translateY(5px);
+            opacity: 0.8;
+        }
+        img {
+            max-width: 200px;
+        }
+    }
+    &__nav-wrapp {
+        ul {
+            display: flex;
+            li {
+                position: relative;
+                &::after {
+                    transition: width 0.35s ease-in-out;
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    background-color: variables.$red-primary;
+                    width: 0%;
+                    height: 1.4px;
+                }
+                &:hover::after {
+                    transition: width 0.35s ease-in-out;
+                    width: 100%;
+                }
+            }
+            li:not(:last-child) {
+                margin-right: 40px;
+            }
+        }
+    }
+    &__nav-link {
+        text-decoration: none;
+        color: variables.$text-gray;
+        font-size: 10px;
+        font-weight: 700;
+    }
+    &__nav-link--active {
+        font-weight: 900;
+        color: variables.$text-light-black;
+    }
+    &__activity-list {
+        display: flex;
+        align-items: center;
+        li {
+            transition: all 0.35s;
+        }
+        li:hover {
+            background-color: #43414138;
+            transition: all 0.35s;
+            opacity: 0.8;
+        }
+        li:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+    &__activity-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+    }
+}
