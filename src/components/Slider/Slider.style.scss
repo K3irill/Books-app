@@ -1,0 +1,67 @@
+@use '../../styles/variables.scss';
+.banner {
+    position: relative;
+    padding-bottom: 200px;
+    &__container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__slider {
+        --active-index: 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        width: 100%;
+        transform: translateX(calc(-100% * var(--active-index)));
+        transition: transform 0.5s ease;
+
+        li {
+            flex: 0 0 100%;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    &__nav-dots {
+        display: flex;
+        justify-content: center;
+        height: var(--navdots-height);
+        padding: 17px 0 0 0;
+        margin: 0;
+        list-style-type: none;
+
+        .dot {
+            position: relative;
+            display: block;
+            width: 12px;
+            height: 12px;
+            margin: 0 10px;
+            background: variables.$dots;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &.active {
+                background: variables.$dots-active;
+            }
+
+            &:hover {
+                background: rgba(144, 14, 92, 0.4);
+            }
+        }
+    }
+}
