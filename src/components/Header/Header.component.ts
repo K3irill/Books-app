@@ -1,4 +1,4 @@
-import './Header.scss'
+import './Header.style.scss'
 
 import template from './Header.template.html'
 
