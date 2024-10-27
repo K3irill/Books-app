@@ -1,5 +1,4 @@
-import { render } from 'sass'
-import styles from './[FTName].module.scss';
+import styles from './[FTName].style.scss';
 import template from './[FTName].template.html';
 
 export class <FTName | pascalcase> {

@@ -1,5 +1,11 @@
+@use './variables.scss';
 body {
-  background-color: #443f3f;
-  font-family: Arial, sans-serif;
-  color: #333;
+    // background-color: #d8d2d2;
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-family: 'Montserrat';
+}
+.__container {
+    max-width: 1208px;
+    margin: 0 auto;
 }
