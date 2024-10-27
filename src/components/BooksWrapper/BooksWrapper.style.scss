@@ -21,12 +21,86 @@
     min-width: 416px;
     height: 710px;
     background-color: variables.$bg-category;
+    display: flex;
+    justify-content: center;
+    &__list {
+        margin-top: 45px;
+    }
+    &__item {
+        color: variables.$text-grey;
+        margin-bottom: 23px;
+        position: relative;
+        cursor: pointer;
+        width: fit-content;
+        &::after {
+            transition: 0.5s ease;
+            position: absolute;
+            content: '';
+            width: 0%;
+            height: 1.4px;
+            left: 0;
+            bottom: -2px;
+            background-color: variables.$purple;
+        }
+        &:hover::after {
+            transition: 0.5s ease;
+            width: 100%;
+        }
+    }
+    &__item--active {
+        color: variables.$text-light-black;
+        font-size: 16px;
+        font-weight: 700;
+        &::before {
+            position: absolute;
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            left: -15px;
+            top: 4px;
+            background-color: variables.$purple;
+        }
+    }
 }
 
 .book {
     display: flex;
     width: 424px;
     height: 300px;
+    position: relative;
+    cursor: pointer;
+
+    &::before {
+        transition: 0.5s ease-in-out;
+        position: absolute;
+        z-index: 999;
+        content: '';
+        width: 0%;
+        height: 2px;
+        background-color: variables.$purple;
+        bottom: 0;
+        right: 0;
+    }
+    &::after {
+        transition: 0.5s ease-in-out;
+        position: absolute;
+        z-index: 999;
+        content: '';
+        width: 2px;
+        height: 0%;
+        background-color: variables.$purple;
+        bottom: 0;
+        right: 0;
+    }
+    &:hover::after {
+        transition: 0.5s ease;
+        height: 100%;
+    }
+    &:hover::before {
+        transition: 0.5s ease;
+        width: 100%;
+    }
     &__img-container {
         min-width: 212px;
         display: flex;
@@ -34,13 +108,14 @@
     &__img {
         width: 100%;
         height: 100%;
+        box-shadow: 0px 0px 5px variables.$text-light-black;
     }
     &__content {
         margin-left: 36px;
     }
     &__author {
         font-size: 10px;
-        color: variables.$text-grey-book;
+        color: variables.$text-grey;
     }
     &__title {
         padding: 4px 0;
@@ -49,15 +124,23 @@
         color: variables.$text-light-black;
     }
     &__rates-container {
+        display: flex;
     }
     &__rates-stars {
         position: relative;
-        margin-bottom: 16px;
+
         background-size: 12px 12px;
+        min-width: 60px;
         max-width: 60px;
         height: 12px;
         background-image: url('/public/assets/images/Star.png');
         background-repeat: repeat-x;
+    }
+    &__review-count {
+        color: variables.$text-grey;
+        font-size: 10px;
+        margin-left: 6px;
+        padding-top: 1.5px;
     }
     &__fill-stars {
         position: absolute;
@@ -71,8 +154,9 @@
         overflow: hidden;
     }
     &__description {
+        margin-top: 16px;
         font-size: 10px;
-        color: variables.$text-grey-book;
+        color: variables.$text-grey;
         line-height: calc(13.6 / 10 * 100%);
     }
     &__price {

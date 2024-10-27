@@ -1,7 +1,5 @@
-import { title } from 'process'
 import './BooksWrapper.style.scss'
 import template from './BooksWrapper.template.html'
-import { join } from 'path'
 
 interface VolumeInfo {
     title: string
@@ -12,6 +10,7 @@ interface VolumeInfo {
     }
     canonicalVolumeLink?: string
     averageRating?: number
+    ratingsCount?: any
 }
 
 interface SaleInfo {
@@ -36,19 +35,44 @@ export class BooksWrapper {
     private element: HTMLElement
     private apiKey: string | undefined
     private booksContainer
+    private categories: NodeListOf<Element>
     constructor() {
         this.element = document.createElement('div')
         this.element.classList.add('BooksWrapper')
         this.render()
         this.booksContainer = this.element.querySelector('.BooksWrapper__books')
         this.apiKey = process.env.API_URL
+        this.categories = this.element.querySelectorAll('.bw-categories__item')
+        console.log(this.categories)
 
-        this.fetchToGoogleApi().then((books) => this.renderBookCards(books))
+        this.fetchToGoogleApi('Architecture').then((books) =>
+            this.renderBookCards(books),
+        )
+        this.selectCategory()
     }
-    private async fetchToGoogleApi(): Promise<BookItem[]> {
+    private selectCategory() {
+        this.categories.forEach((category) => {
+            category.addEventListener('click', () => {
+                this.categories.forEach((cat) => {
+                    cat.classList.remove('bw-categories__item--active')
+                })
+                category.classList.add('bw-categories__item--active')
+                if (this.booksContainer) {
+                    this.booksContainer.innerHTML = ''
+                    if (category.textContent) {
+                        this.fetchToGoogleApi(category.textContent).then(
+                            (books) => this.renderBookCards(books),
+                        )
+                    }
+                }
+            })
+        })
+    }
+
+    private async fetchToGoogleApi(category: string): Promise<BookItem[]> {
         let startIndex = 0
         let maxResults = 6
-        const googleApiUrl = `https://www.googleapis.com/books/v1/volumes?q="subject:Business"&key=${this.apiKey}&printType=books&startIndex=${startIndex}&maxResults=${maxResults}&langRestrict=en`
+        const googleApiUrl = `https://www.googleapis.com/books/v1/volumes?q="subject:${category.trim()}"&key=${this.apiKey}&printType=books&startIndex=${startIndex}&maxResults=${maxResults}&langRestrict=en`
 
         const request = await fetch(googleApiUrl)
         const response: GoogleApiResponse = await request.json()
@@ -75,29 +99,38 @@ export class BooksWrapper {
 
         const bookAuthor = document.createElement('h3')
         bookAuthor.classList.add('book__author')
-        bookAuthor.textContent = book.volumeInfo.authors
-            ? book.volumeInfo.authors[0]
-            : 'Неизвестный автор'
+        bookAuthor.textContent =
+            book.volumeInfo.authors?.map((author) => author).join(', ') ||
+            'Неизвестный автор'
 
         const bookTitle = document.createElement('h2')
         bookTitle.classList.add('book__title')
         bookTitle.textContent = book.volumeInfo.title
+
+        const rating = book.volumeInfo.averageRating
 
         const bookRatesContainer = document.createElement('div')
         bookRatesContainer.classList.add('book__rates-container')
 
         const bookRatesStar = document.createElement('div')
         bookRatesStar.classList.add('book__rates-stars')
-        bookRatesContainer.append(bookRatesStar)
+
         const bookRatesFillStar = document.createElement('div')
         bookRatesFillStar.classList.add('book__fill-stars')
-        const rating = book.volumeInfo.averageRating
         if (rating) {
             const fillPercentage = (rating / 5) * 100
             bookRatesFillStar.style.width = `${fillPercentage}%`
+        } else {
+            bookRatesContainer.style.display = 'none'
         }
 
+        const bookRatesCount = document.createElement('p')
+        bookRatesCount.classList.add('book__review-count')
+        bookRatesCount.textContent = `${book.volumeInfo.ratingsCount} review`
+
         bookRatesStar.append(bookRatesFillStar)
+        bookRatesContainer.append(bookRatesStar)
+        bookRatesContainer.append(bookRatesCount)
 
         const bookDescription = document.createElement('p')
         bookDescription.classList.add('book__description')
