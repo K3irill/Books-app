@@ -12,7 +12,7 @@ if (app) {
     const header = new Header()
     const main = new Main()
     const banner = new Banner()
-    const booksWrapper = new BooksWrapper()
+    const booksWrapper = new BooksWrapper(header.goodsElement)
     header.appendTo(app)
     main.appendTo(app)
     banner.appendTo(main.element)
