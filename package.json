@@ -23,6 +23,7 @@
         "babel-loader": "^9.2.1",
         "copy-webpack-plugin": "^12.0.2",
         "css-loader": "^6.11.0",
+        "dotenv-webpack": "^8.1.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-define-config": "^2.1.0",
         "eslint-plugin-import": "^2.31.0",
@@ -44,6 +45,7 @@
         "webpack-dev-server": "^5.1.0"
     },
     "dependencies": {
+        "dotenv": "^16.4.5",
         "reset-css": "^5.0.2"
     }
 }

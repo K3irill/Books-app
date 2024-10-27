@@ -3,13 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { default: test } = require('node:test')
 const { type } = require('os')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 module.exports = {
     entry: './src/main.ts',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
-        publicPath: '/', // Путь к статическим ресурсам
+        publicPath: '/',
     },
     mode: 'development',
     resolve: {
@@ -43,7 +44,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'], // Обработка CSS файлов
+                use: ['style-loader', 'css-loader'],
             },
             {
                 test: /\.ts$/,
@@ -52,9 +53,9 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
-                type: 'asset/resource', // используем asset/resource для Webpack 5
+                type: 'asset/resource',
                 generator: {
-                    filename: 'assets/images/[name][hash][ext]', // куда сохранять
+                    filename: 'assets/images/[name][hash][ext]',
                 },
             },
         ],
@@ -62,21 +63,20 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         static: {
-            directory: path.join(__dirname, 'public'), // Папка для статических файлов
+            directory: path.join(__dirname, 'public'),
         },
         port: 3000,
         hot: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html', // укажите путь к вашему шаблону
+            template: './src/index.html',
             filename: 'index.html',
-            inject: true, // автоматически вставляет ссылки на сгенерированные скрипты
+            inject: true,
         }),
         new CopyWebpackPlugin({
-            patterns: [
-                { from: 'public/assets', to: 'assets' }, // копируем папку assets из public в dist
-            ],
+            patterns: [{ from: 'public/assets', to: 'assets' }],
         }),
+        new Dotenv(),
     ],
 }
