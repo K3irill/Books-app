@@ -6,6 +6,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
     }
     &__logo-wrapp {
         transition: all 0.35s;
@@ -17,9 +18,16 @@
         }
         img {
             max-width: 200px;
+            @media (width <= 767px) {
+                max-width: 100px;
+            }
         }
     }
     &__nav-wrapp {
+        @media (width <= 767px) {
+            position: absolute;
+            top: 37px;
+        }
         ul {
             display: flex;
             li {
@@ -41,6 +49,9 @@
             }
             li:not(:last-child) {
                 margin-right: 40px;
+                @media (width <= 767px) {
+                    margin-right: 20px;
+                }
             }
         }
     }
@@ -58,6 +69,7 @@
         display: flex;
         align-items: center;
         li {
+            position: relative;
             transition: all 0.35s;
         }
         li:hover {
@@ -77,4 +89,18 @@
         height: 25px;
         border-radius: 50%;
     }
+}
+#goods {
+    background-color: variables.$red-primary;
+    color: variables.$bg-category;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
