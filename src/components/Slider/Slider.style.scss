@@ -1,12 +1,12 @@
 @use '../../styles/variables.scss';
 .banner {
     position: relative;
-    padding-bottom: 200px;
     &__container {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-bottom: 105px;
     }
     &__slider {
         --active-index: 0;
