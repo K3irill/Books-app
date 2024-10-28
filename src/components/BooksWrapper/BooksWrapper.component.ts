@@ -54,7 +54,6 @@ export class BooksWrapper {
         this.goodsBasket = []
         this.goodsElement = goodsElement
 
-        console.log(localStorage.getItem('goodsId'))
         this.loadGoodFromLocalStorage()
 
         this.fetchToGoogleApi(
@@ -97,7 +96,6 @@ export class BooksWrapper {
 
         const request = await fetch(googleApiUrl)
         const response: GoogleApiResponse = await request.json()
-        console.log(response)
 
         this.lazyLoadBook(this.currentCategory)
         return response.items
@@ -228,14 +226,14 @@ export class BooksWrapper {
         }
         if (bookId && btn) {
             if (this.goodsBasket.includes(bookId)) {
-                btn.classList.add('in-basket')
+                btn.classList.add('in-CART')
                 btn.textContent = 'IN THE CART'
                 localStorage.setItem(
                     'goodsId',
                     JSON.stringify(this.goodsBasket),
                 )
             } else {
-                btn.classList.remove('in-basket')
+                btn.classList.remove('in-CART')
                 btn.textContent = 'BUY NOW'
                 this.deleteBookFromLocalStorage(bookId)
             }
@@ -259,7 +257,6 @@ export class BooksWrapper {
 
             loadButton.addEventListener('click', () => {
                 this.currentStartIndex += 6
-                this.currentMaxResults = 6
                 this.fetchToGoogleApi(
                     this.currentCategory,
                     this.currentStartIndex,
