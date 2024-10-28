@@ -4,6 +4,7 @@ const { default: test } = require('node:test')
 const { type } = require('os')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
+
 module.exports = {
     entry: './src/main.ts',
     output: {
@@ -68,11 +69,30 @@ module.exports = {
         port: 3000,
         hot: true,
     },
+    optimization: {
+        minimize: true,
+        // minimizer: [
+        //     new TerserPlugin({
+        //         terserOptions: {
+        //             format: {
+        //                 comments: false,
+        //             },
+        //         },
+        //         extractComments: false,
+        //     }),
+        //     new CssMinimizerPlugin(),
+        // ],
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
             inject: true,
+            // minify: {
+            //     removeComments: true,
+            //     collapseWhitespace: true,
+            //     removeRedundantAttributes: true,
+            // },
         }),
         new CopyWebpackPlugin({
             patterns: [{ from: 'public/assets', to: 'assets' }],
