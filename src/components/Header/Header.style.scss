@@ -1,12 +1,18 @@
 // Header.module.scss
 @use '../../styles/variables.scss';
 .header {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: #fff;
     &__container {
+        position: relative;
         padding: 15px 5px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        position: relative;
     }
     &__logo-wrapp {
         transition: all 0.35s;
@@ -26,11 +32,14 @@
     &__nav-wrapp {
         @media (width <= 767px) {
             position: absolute;
-            top: 37px;
+            top: 45px;
+            overflow-x: scroll;
+            width: 100%;
         }
         ul {
             display: flex;
             li {
+                text-wrap: nowrap;
                 position: relative;
                 &::after {
                     transition: width 0.35s ease-in-out;
