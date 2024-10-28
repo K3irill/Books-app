@@ -1,6 +1,7 @@
 @use '../../styles/variables.scss';
 .banner {
     position: relative;
+    padding-top: 80px;
     &__container {
         width: 100%;
         display: flex;
