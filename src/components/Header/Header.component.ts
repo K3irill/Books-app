@@ -10,7 +10,6 @@ export class Header {
         this.element.classList.add('header')
         this.render()
         this.goodsElement = this.element.querySelector('#goods')
-        console.log(this.goodsElement)
     }
 
     private render() {
