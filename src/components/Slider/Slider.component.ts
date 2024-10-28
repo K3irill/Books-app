@@ -12,7 +12,6 @@ export class Banner {
         this.element.classList.add('banner')
         this.IMAGES = []
         this.currentIndex = 0
-
         this.addImageToSlider(
             'Black Friday',
             '/assets/images/Slider/banner1.png',
@@ -62,6 +61,14 @@ export class Banner {
                 sliderList.style.transform = `translateX(-${index * 100}%)`
             }
         }
+        const autoScroll = (index: number, totalSlides: number) => {
+            this.currentIndex = (index + 1) % totalSlides
+            scrollToSlide(this.currentIndex)
+            setActiveIndex(this.currentIndex)
+        }
+        setInterval(() => {
+            autoScroll(this.currentIndex, 3)
+        }, 5000)
 
         dots[0].classList.add('active')
         dots.forEach((dot, index) => {
